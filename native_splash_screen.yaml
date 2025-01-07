@@ -3,19 +3,17 @@ flutter_native_splash:
   image: assets/images/Logo.png
   branding: assets/images/branding.png
   branding_mode: bottom
-  branding_bottom_padding: 24
-
-  # color_dark: "#202020"
-  # image_dark: assets/images/PNG Images/splash_image.png
+  branding_bottom_padding: 20
+  color_dark: "#101127"
+  image_dark: assets/images/Logo.png
 
   android_12:
     image: assets/images/logo_android12.png
     color: "#F2FEFF"
     branding: assets/images/branding.png
-    branding_bottom_padding: 24
-
-    # image_dark: assets/images/PNG Images/android12_splash.png
-    # color_dark: "#202020"
+    branding_bottom_padding: 20
+    image_dark: assets/images/dark_logo_android12.png
+    color_dark: "#101127"
 
   ios: true
   web: true
