@@ -1,0 +1,19 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/PNG Images/splash_image_light.png
+  branding: assets/images/PNG Images/branding.png
+  branding_mode: bottom
+  branding_bottom_padding: 64
+  color_dark: "#202020"
+  image_dark: assets/images/PNG Images/splash_image.png
+  
+  android_12:
+    image: assets/images/PNG Images/android12_splash_light.png
+    color: "#FFFFFF"
+    branding: assets/images/PNG Images/branding.png
+    image_dark: assets/images/PNG Images/android12_splash.png
+    color_dark: "#202020"
+  ios: true
+  web: true
+
+  fullscreen: true
