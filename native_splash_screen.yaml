@@ -1,18 +1,22 @@
 flutter_native_splash:
-  color: "#FFFFFF"
-  image: assets/images/PNG Images/splash_image_light.png
-  branding: assets/images/PNG Images/branding.png
+  color: "#F2FEFF"
+  image: assets/images/Logo.png
+  branding: assets/images/branding.png
   branding_mode: bottom
-  branding_bottom_padding: 64
-  color_dark: "#202020"
-  image_dark: assets/images/PNG Images/splash_image.png
-  
+  branding_bottom_padding: 24
+
+  # color_dark: "#202020"
+  # image_dark: assets/images/PNG Images/splash_image.png
+
   android_12:
-    image: assets/images/PNG Images/android12_splash_light.png
-    color: "#FFFFFF"
-    branding: assets/images/PNG Images/branding.png
-    image_dark: assets/images/PNG Images/android12_splash.png
-    color_dark: "#202020"
+    image: assets/images/logo_android12.png
+    color: "#F2FEFF"
+    branding: assets/images/branding.png
+    branding_bottom_padding: 24
+
+    # image_dark: assets/images/PNG Images/android12_splash.png
+    # color_dark: "#202020"
+
   ios: true
   web: true
 
