@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.4.4
+  flutter_svg: ^2.0.16
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +22,4 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/
