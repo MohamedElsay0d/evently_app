@@ -84,6 +84,21 @@ class AppTheme {
         ),
       ),
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: primaryColor,
+      selectedItemColor: white ,
+      unselectedItemColor: white,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: primaryColor,
+      foregroundColor: white,
+      shape: CircleBorder(
+        side: BorderSide(
+          color: white,
+          width: 4,
+        ),
+      ),
+    ),
   );
   static ThemeData darkTheme = ThemeData();
 }

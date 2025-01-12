@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:evently_app/pressentation/views/auth/widgets/button_with_image.dart';
 import 'package:evently_app/pressentation/widgets/custom_button.dart';
 import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
+import '../homepage/home_page.dart';
 import 'forget_password_screen.dart';
 import 'register_screen.dart';
 import 'widgets/custom_divider.dart';
@@ -98,9 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 CustomButton(
                   label: 'Login',
                   onPress: () {
+                    /*
                     if (formKey.currentState!.validate()) {
                       log('Login');
                     }
+                    */
+                    Navigator.of(context).pushNamed(HomePage.routeName);
                   },
                 ),
                 SizedBox(

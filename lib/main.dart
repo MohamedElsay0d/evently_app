@@ -1,8 +1,10 @@
 import 'package:evently_app/pressentation/views/auth/forget_password_screen.dart';
+import 'package:evently_app/pressentation/views/homepage/taps/home_tap/home_tap.dart';
 import 'package:flutter/material.dart';
 
 import 'pressentation/views/auth/login_screen.dart';
 import 'pressentation/views/auth/register_screen.dart';
+import 'pressentation/views/homepage/home_page.dart';
 import 'themes/app_theme.dart';
 
 void main() {
@@ -24,6 +26,7 @@ class MainApp extends StatelessWidget {
         LoginScreen.routeName: (context) => const LoginScreen(),
         RegisterScreen.routeName: (context) => const RegisterScreen(),
         ForgetPasswordScreen.routeName : (context) => const ForgetPasswordScreen(),
+        HomePage.routeName: (context) => const HomePage(),
       },
     );
   }
