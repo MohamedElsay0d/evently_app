@@ -34,7 +34,7 @@ class AppTheme {
       foregroundColor: black,
       centerTitle: true,
       titleTextStyle: TextStyle(
-        color: primaryColor,
+        color: black,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),

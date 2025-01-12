@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pressentation/views/auth/login_screen.dart';
+import 'pressentation/views/auth/register_screen.dart';
 import 'themes/app_theme.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MainApp extends StatelessWidget {
       initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),
+        RegisterScreen.routeName: (context) => const RegisterScreen(),
       },
     );
   }

@@ -1,29 +1,47 @@
 import 'dart:developer';
 
-import 'package:evently_app/pressentation/views/auth/widgets/button_with_image.dart';
-import 'package:evently_app/pressentation/widgets/custom_button.dart';
-import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
+import 'package:evently_app/pressentation/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'register_screen.dart';
-import 'widgets/custom_divider.dart';
+import '../../../themes/app_theme.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_form_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String routeName = '/login';
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  static const String routeName = '/register';
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+            ),
+          ),
+          title: Text(
+            'Register',
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: AppTheme.black),
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -42,6 +60,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 Form(
                   key: formKey,
                   child: Column(children: [
+                    CustomTextFormField(
+                      controller: nameController,
+                      icon: 'name',
+                      hintText: 'Name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a name';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
                     CustomTextFormField(
                       icon: 'email',
                       hintText: 'Email',
@@ -77,25 +109,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    CustomTextFormField(
+                      icon: 'password',
+                      hintText: 'Re Password',
+                      pass: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a password';
+                        } else if (value != passwordController.text) {
+                          return 'Passwords do not match';
+                        }
+                        return null;
+                      },
+                    )
                   ]),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    child: Text(
-                      'Forgot Password?',
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
                 SizedBox(
-                  height: 12,
+                  height: 22,
                 ),
                 CustomButton(
-                  label: 'Login',
+                  label: 'Create Account',
                   onPress: () {
                     if (formKey.currentState!.validate()) {
-                      log('Login');
+                      log('Register');
                     }
                   },
                 ),
@@ -106,28 +145,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Don\'t have an account?',
+                      'Already have an account?',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     TextButton(
                       child: Text(
-                        'Create an account',
+                        'Login',
                       ),
                       onPressed: () {
                         Navigator.of(context)
-                            .pushReplacementNamed(RegisterScreen.routeName);
+                            .pushReplacementNamed(LoginScreen.routeName);
                       },
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 16,
-                ),
-                CustomDivider(),
-                SizedBox(
-                  height: 22,
-                ),
-                ButtonWithImage()
               ],
             ),
           ),

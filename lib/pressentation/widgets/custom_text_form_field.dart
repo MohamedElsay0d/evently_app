@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../themes/app_theme.dart';
-
 class CustomTextFormField extends StatefulWidget {
   final String? icon;
   final String hintText;
   final bool pass;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
 
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    required this.controller,
+     this.controller,
     this.icon,
     this.validator,
     this.pass = false,
