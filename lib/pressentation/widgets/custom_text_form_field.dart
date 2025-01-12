@@ -11,7 +11,7 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-     this.controller,
+    this.controller,
     this.icon,
     this.validator,
     this.pass = false,
@@ -59,6 +59,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             : null,
       ),
       validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: widget.pass ? TextInputType.visiblePassword : null,
     );
   }
 }
