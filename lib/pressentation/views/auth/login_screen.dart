@@ -5,6 +5,7 @@ import 'package:evently_app/pressentation/widgets/custom_button.dart';
 import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
+import 'forget_password_screen.dart';
 import 'register_screen.dart';
 import 'widgets/custom_divider.dart';
 
@@ -85,7 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Forgot Password?',
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(ForgetPasswordScreen.routeName);
+                    },
                   ),
                 ),
                 SizedBox(
