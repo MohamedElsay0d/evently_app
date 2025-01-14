@@ -7,6 +7,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool pass;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged ;
 
   const CustomTextFormField({
     super.key,
@@ -14,6 +15,7 @@ class CustomTextFormField extends StatefulWidget {
     this.controller,
     this.icon,
     this.validator,
+    this.onChanged,
     this.pass = false,
   });
 
@@ -59,6 +61,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             : null,
       ),
       validator: widget.validator,
+      onChanged: widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: widget.pass ? TextInputType.visiblePassword : null,
     );
