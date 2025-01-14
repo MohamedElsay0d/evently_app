@@ -6,7 +6,8 @@ import '../../../../Data/models/user_info.dart';
 import '../../../../themes/app_theme.dart';
 
 class ContainerHeader extends StatefulWidget {
-  ContainerHeader({super.key});
+  final bool isProfile;
+  ContainerHeader({super.key, this.isProfile = false});
 
   @override
   State<ContainerHeader> createState() => _ContainerHeaderState();
@@ -16,9 +17,9 @@ class _ContainerHeaderState extends State<ContainerHeader> {
   final User user = User(
     id: '1',
     name: 'Mohamed ElSayed',
-    email: 'mohamed@gmail.com',
+    email: 'mohamedelsayed@gmail.com',
     phone: '01203654153',
-    image: 'image',
+    image: 'route',
   );
   int selectedIndex = 0;
 
@@ -36,48 +37,78 @@ class _ContainerHeaderState extends State<ContainerHeader> {
         ),
       ),
       child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Welcome Back ✨',
-              style: textTheme.bodyMedium!.copyWith(
-                color: AppTheme.white,
-              ),
-              textAlign: TextAlign.start,
-            ),
-            Text(
-              user.name,
-              style: textTheme.titleLarge,
-            ),
-            SizedBox(height: 28),
-            DefaultTabController(
-              initialIndex: selectedIndex,
-              length: Category.items.length,
-              child: TabBar(
-                indicator: BoxDecoration(),
-                dividerColor: Colors.transparent,
-                tabAlignment: TabAlignment.start,
-                isScrollable: true,
-                labelPadding: EdgeInsets.only(right: 16),
-                onTap: (index) {
-                  selectedIndex = index;
-                  setState(() {});
-                },
-                tabs: Category.items
-                    .map(
-                      (category) => TabBarItem(
-                        category: category,
-                        isSelected:
-                            selectedIndex == Category.items.indexOf(category),
+          child: !(widget.isProfile)
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome Back ✨',
+                      style: textTheme.bodyMedium!.copyWith(
+                        color: AppTheme.white,
                       ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    Text(
+                      user.name,
+                      style: textTheme.titleLarge,
+                    ),
+                    SizedBox(height: 28),
+                    DefaultTabController(
+                      initialIndex: selectedIndex,
+                      length: Category.items.length,
+                      child: TabBar(
+                        indicator: BoxDecoration(),
+                        dividerColor: Colors.transparent,
+                        tabAlignment: TabAlignment.start,
+                        isScrollable: true,
+                        labelPadding: EdgeInsets.only(right: 16),
+                        onTap: (index) {
+                          selectedIndex = index;
+                          setState(() {});
+                        },
+                        tabs: Category.items
+                            .map(
+                              (category) => TabBarItem(
+                                category: category,
+                                isSelected: selectedIndex ==
+                                    Category.items.indexOf(category),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/${user.image}.png',
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                user.name,
+                                style: textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.bold, fontSize: 24),
+                              ),
+                              Text(
+                                user.email,
+                                style: textTheme.bodyLarge
+                                    ?.copyWith(color: AppTheme.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
     );
   }
 }

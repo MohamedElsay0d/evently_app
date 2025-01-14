@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ButtonWithImage extends StatelessWidget {
-  const ButtonWithImage({super.key});
+  final String icon;
+  const ButtonWithImage({super.key, required this.icon});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: icon == 'google'
+            ? Theme.of(context).scaffoldBackgroundColor
+            : AppTheme.red,
         side: BorderSide(
           color: Theme.of(context).primaryColor,
           width: .8,
@@ -20,20 +23,25 @@ class ButtonWithImage extends StatelessWidget {
       ),
       onPressed: () {},
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: icon == 'google'
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         children: [
           SvgPicture.asset(
-            'assets/icons/google.svg',
+            'assets/icons/$icon.svg',
             height: 26,
             width: 26,
+            color: icon == 'google' ? null : AppTheme.white,
           ),
           const SizedBox(width: 10),
           Text(
-            "Login With Google",
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.w300,
-                ),
+            icon == 'google' ? "Login With Google" : "LogOut",
+            style: icon == 'google'
+                ? Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: AppTheme.primaryColor,
+                      fontWeight: FontWeight.w300,
+                    )
+                : Theme.of(context).textTheme.titleLarge,
           ),
         ],
       ),
