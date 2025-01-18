@@ -7,7 +7,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool pass;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
-  final void Function(String)? onChanged ;
+  final void Function(String)? onChanged;
 
   const CustomTextFormField({
     super.key,
@@ -64,6 +64,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       onChanged: widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: widget.pass ? TextInputType.visiblePassword : null,
+      maxLines: widget.hintText == 'Event Description' ? 5 : 1,
     );
   }
 }

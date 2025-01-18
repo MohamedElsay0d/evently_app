@@ -7,7 +7,7 @@ import '../../../../themes/app_theme.dart';
 
 class ContainerHeader extends StatefulWidget {
   final bool isProfile;
-  ContainerHeader({super.key, this.isProfile = false});
+  const ContainerHeader({super.key, this.isProfile = false});
 
   @override
   State<ContainerHeader> createState() => _ContainerHeaderState();
@@ -72,6 +72,10 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                                 category: category,
                                 isSelected: selectedIndex ==
                                     Category.items.indexOf(category),
+                                backgroundColor: AppTheme.primaryColor,
+                                foregroundColor: AppTheme.white,
+                                selectedBackgroundColor: AppTheme.white,
+                                selectedForegroundColor: AppTheme.primaryColor,
                               ),
                             )
                             .toList(),

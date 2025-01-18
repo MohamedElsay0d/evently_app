@@ -12,7 +12,7 @@ class Category {
       required this.image});
 
   static final List<Category> items = [
-    Category(id: '1', name: 'All', icon: Icons.sync_alt_outlined, image: 'all'),
+    Category(id: '1', name: 'All', icon: Icons.sync_alt_outlined, image: 'Exhibition'),
     Category(
         id: '2',
         name: 'Sport',

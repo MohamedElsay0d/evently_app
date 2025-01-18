@@ -2,6 +2,7 @@ import 'package:evently_app/pressentation/views/homepage/widgets/navbar_icon.dar
 import 'package:flutter/material.dart';
 
 import '../../../themes/app_theme.dart';
+import '../event/create_event.dart';
 import 'taps/home_tap/home_tap.dart';
 import 'taps/love_tap/love_tap.dart';
 import 'taps/map_tap/map_tap.dart';
@@ -79,7 +80,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: tabs[_currentIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, CreateEvent.routeName);
+        },
         child: const Icon(
           Icons.add,
           size: 40,
