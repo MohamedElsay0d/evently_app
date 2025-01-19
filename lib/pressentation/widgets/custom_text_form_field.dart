@@ -8,6 +8,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final int maxLines;
 
   const CustomTextFormField({
     super.key,
@@ -17,6 +18,7 @@ class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.pass = false,
+    this.maxLines = 1,
   });
 
   @override
@@ -64,7 +66,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       onChanged: widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: widget.pass ? TextInputType.visiblePassword : null,
-      maxLines: widget.hintText == 'Event Description' ? 5 : 1,
+      maxLines: widget.maxLines,
     );
   }
 }

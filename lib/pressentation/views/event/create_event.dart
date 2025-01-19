@@ -1,13 +1,12 @@
-import 'package:evently_app/pressentation/views/event/detect_location.dart';
-import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../../Data/models/category_model.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
+import '../../widgets/custom_text_form_field.dart';
+import '../homepage/home_page.dart';
 import '../homepage/widgets/tab_bar_item.dart';
 import 'custom_row.dart';
+import 'detect_location.dart';
 
 class CreateEvent extends StatefulWidget {
   static const String routeName = '/create_event';
@@ -19,6 +18,11 @@ class CreateEvent extends StatefulWidget {
 
 class _CreateEventState extends State<CreateEvent> {
   int selectedIndex = 0;
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,30 +90,73 @@ class _CreateEventState extends State<CreateEvent> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Title',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontWeight: FontWeight.normal),
+                    Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Title',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.normal),
+                          ),
+                          CustomTextFormField(
+                            hintText: 'Event Title',
+                            icon: 'event_title',
+                            controller: titleController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter event title';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Description',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.normal),
+                          ),
+                          CustomTextFormField(
+                            hintText: 'Event Description',
+                            controller: descriptionController,
+                            maxLines: 5,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter event description';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                    CustomTextFormField(
-                      hintText: 'Event Title',
-                      icon: 'event_title',
+                    CustomRow(
+                      title: 'Date',
+                      selectedDate: selectedDate,
+                      selectedTime: null,
+                      onDateSelected: (date) {
+                        setState(() {
+                          selectedDate = date;
+                        });
+                      },
+                      onTimeSelected: (time) {}, 
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Description',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontWeight: FontWeight.normal),
+                    CustomRow(
+                      title: 'Time',
+                      selectedDate: null,
+                      selectedTime: selectedTime,
+                      onDateSelected: (date) {}, 
+                      onTimeSelected: (time) {
+                        setState(() {
+                          selectedTime = time;
+                        });
+                      },
                     ),
-                    CustomTextFormField(
-                      hintText: 'Event Description',
-                    ),
-                    CustomRow(title: 'Date'),
-                    CustomRow(title: 'Time'),
                     Text(
                       'Location',
                       style: Theme.of(context)
@@ -121,7 +168,11 @@ class _CreateEventState extends State<CreateEvent> {
                     SizedBox(height: 12),
                     CustomButton(
                       label: 'Create Event',
-                      onPress: () {},
+                      onPress: () {
+                        if (formKey.currentState!.validate()) {
+                          Navigator.pushNamed(context, HomePage.routeName);
+                        }
+                      },
                     ),
                     SizedBox(height: 12),
                   ],

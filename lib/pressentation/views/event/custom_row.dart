@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../themes/app_theme.dart';
 
 class CustomRow extends StatelessWidget {
   final String title;
-  const CustomRow({super.key, required this.title});
+  final DateTime? selectedDate;
+  final TimeOfDay? selectedTime;
+  final Function(DateTime?) onDateSelected;
+  final Function(TimeOfDay?) onTimeSelected;
 
+  CustomRow({
+    super.key,
+    required this.title,
+    required this.selectedDate,
+    required this.selectedTime,
+    required this.onDateSelected,
+    required this.onTimeSelected,
+  });
+  final DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -24,9 +37,35 @@ class CustomRow extends StatelessWidget {
         ),
         Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () async {
+            if (title == 'Date') {
+              final DateTime? pickedDate = await showDatePicker(
+                context: context,
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 365)),
+                initialDate: selectedDate ?? DateTime.now(),
+              );
+              if (pickedDate != null) {
+                onDateSelected(pickedDate);
+              }
+            } else {
+              final TimeOfDay? pickedTime = await showTimePicker(
+                context: context,
+                initialTime: selectedTime ?? TimeOfDay.now(),
+              );
+              if (pickedTime != null) {
+                onTimeSelected(pickedTime);
+              }
+            }
+          },
           child: Text(
-            'Choose $title',
+            title == 'Date'
+                ? (selectedDate != null
+                    ? dateFormat.format(selectedDate!)
+                    : 'Choose Date')
+                : (selectedTime != null
+                    ? selectedTime!.format(context)
+                    : 'Choose Time'),
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge

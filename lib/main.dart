@@ -25,7 +25,8 @@ class MainApp extends StatelessWidget {
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),
         RegisterScreen.routeName: (context) => const RegisterScreen(),
-        ForgetPasswordScreen.routeName : (context) => const ForgetPasswordScreen(),
+        ForgetPasswordScreen.routeName: (context) =>
+            const ForgetPasswordScreen(),
         HomePage.routeName: (context) => const HomePage(),
         CreateEvent.routeName: (context) => const CreateEvent(),
       },
