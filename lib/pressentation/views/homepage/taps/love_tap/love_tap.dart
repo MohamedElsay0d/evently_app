@@ -27,7 +27,7 @@ class LoveTap extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return EventItem();
+                  return Container();
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 8);

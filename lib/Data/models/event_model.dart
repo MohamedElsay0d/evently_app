@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'category_model.dart';
@@ -19,39 +20,33 @@ class EventModel {
     required this.category,
   });
 
+  late Timestamp dateTime;
+  DateTime _dateTime = DateTime.now();
   Map<String, dynamic> toJson() {
-    DateTime dateTime =
+    _dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    dateTime = Timestamp.fromDate(_dateTime);
     return {
       'id': id,
       'title': title,
       'description': description,
       'categoryId': category.id,
-      'dateTime': dateTime.toIso8601String(),
+      'dateTime': dateTime,
     };
   }
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
-    DateTime dateTime = DateTime.parse(json['dateTime']);
+    Timestamp dateTime = json['dateTime'];
+    DateTime date = dateTime.toDate();
+    TimeOfDay time = TimeOfDay.fromDateTime(date);
     return EventModel(
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      category: json['categoryId'],
-      date: DateTime(
-        dateTime.year,
-        dateTime.month,
-        dateTime.day,
-      ),
-      time: TimeOfDay(
-        hour: dateTime.hour,
-        minute: dateTime.minute,
-      ),
+      date: date,
+      time: time,
+      category: Category.items
+          .firstWhere((category) => category.id == json['categoryId']),
     );
-  }
-
-  @override
-  String toString() {
-    return 'EventModel{id: $id, title: $title, description: $description, date: $date, time: $time, category: $category}';
   }
 }

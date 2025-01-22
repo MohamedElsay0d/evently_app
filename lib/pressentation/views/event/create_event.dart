@@ -18,7 +18,7 @@ class CreateEvent extends StatefulWidget {
 }
 
 class _CreateEventState extends State<CreateEvent> {
-  int selectedIndex = 1;
+  int selectedIndex = 0;
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDate;
@@ -57,7 +57,7 @@ class _CreateEventState extends State<CreateEvent> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                      'assets/images/${Category.items[selectedIndex].image}.png'),
+                      'assets/images/${Category.items.sublist(1)[selectedIndex].image}.png'),
                 ),
                 SizedBox(height: 16),
                 DefaultTabController(
@@ -70,7 +70,7 @@ class _CreateEventState extends State<CreateEvent> {
                     isScrollable: true,
                     labelPadding: EdgeInsets.only(right: 16),
                     onTap: (index) {
-                      selectedIndex = index + 1;
+                      selectedIndex = index;
                       setState(() {});
                     },
                     tabs: Category.items
@@ -79,7 +79,7 @@ class _CreateEventState extends State<CreateEvent> {
                           (category) => TabBarItem(
                             category: category,
                             isSelected: selectedIndex ==
-                                Category.items.indexOf(category),
+                                Category.items.sublist(1).indexOf(category),
                             backgroundColor: AppTheme.white,
                             foregroundColor: AppTheme.primaryColor,
                             selectedBackgroundColor: AppTheme.primaryColor,
@@ -180,7 +180,7 @@ class _CreateEventState extends State<CreateEvent> {
                             description: descriptionController.text,
                             date: selectedDate!,
                             time: selectedTime!,
-                            category: Category.items[selectedIndex],
+                            category: Category.items.sublist(1)[selectedIndex],
                           );
                           FirebaseService.addEventToFirebase(event);
                         }
