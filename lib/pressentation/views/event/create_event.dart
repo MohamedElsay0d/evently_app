@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../Data/models/category_model.dart';
+import '../../../Data/models/event_model.dart';
+import '../../../Data/services/firebase_service.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
-import '../homepage/home_page.dart';
 import '../homepage/widgets/tab_bar_item.dart';
 import 'custom_row.dart';
 import 'detect_location.dart';
@@ -17,13 +18,12 @@ class CreateEvent extends StatefulWidget {
 }
 
 class _CreateEventState extends State<CreateEvent> {
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   final formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _CreateEventState extends State<CreateEvent> {
                 ),
                 SizedBox(height: 16),
                 DefaultTabController(
-                  length: Category.items.length,
+                  length: Category.items.sublist(1).length,
                   initialIndex: selectedIndex,
                   child: TabBar(
                     indicator: BoxDecoration(),
@@ -70,10 +70,11 @@ class _CreateEventState extends State<CreateEvent> {
                     isScrollable: true,
                     labelPadding: EdgeInsets.only(right: 16),
                     onTap: (index) {
-                      selectedIndex = index;
+                      selectedIndex = index + 1;
                       setState(() {});
                     },
                     tabs: Category.items
+                        .sublist(1)
                         .map(
                           (category) => TabBarItem(
                             category: category,
@@ -146,13 +147,13 @@ class _CreateEventState extends State<CreateEvent> {
                           selectedDate = date;
                         });
                       },
-                      onTimeSelected: (time) {}, 
+                      onTimeSelected: (time) {},
                     ),
                     CustomRow(
                       title: 'Time',
                       selectedDate: null,
                       selectedTime: selectedTime,
-                      onDateSelected: (date) {}, 
+                      onDateSelected: (date) {},
                       onTimeSelected: (time) {
                         setState(() {
                           selectedTime = time;
@@ -171,8 +172,17 @@ class _CreateEventState extends State<CreateEvent> {
                     CustomButton(
                       label: 'Create Event',
                       onPress: () {
-                        if (formKey.currentState!.validate() && selectedDate != null && selectedTime != null) {
-                          Navigator.pushNamed(context, HomePage.routeName);
+                        if (formKey.currentState!.validate() &&
+                            selectedDate != null &&
+                            selectedTime != null) {
+                          EventModel event = EventModel(
+                            title: titleController.text,
+                            description: descriptionController.text,
+                            date: selectedDate!,
+                            time: selectedTime!,
+                            category: Category.items[selectedIndex],
+                          );
+                          FirebaseService.addEventToFirebase(event);
                         }
                       },
                     ),
