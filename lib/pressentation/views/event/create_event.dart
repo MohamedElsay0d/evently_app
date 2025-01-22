@@ -23,6 +23,8 @@ class _CreateEventState extends State<CreateEvent> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   final formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -169,7 +171,7 @@ class _CreateEventState extends State<CreateEvent> {
                     CustomButton(
                       label: 'Create Event',
                       onPress: () {
-                        if (formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate() && selectedDate != null && selectedTime != null) {
                           Navigator.pushNamed(context, HomePage.routeName);
                         }
                       },

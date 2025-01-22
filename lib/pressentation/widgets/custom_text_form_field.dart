@@ -9,7 +9,6 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final int maxLines;
-
   const CustomTextFormField({
     super.key,
     required this.hintText,

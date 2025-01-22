@@ -1,4 +1,5 @@
 import 'package:evently_app/pressentation/views/auth/forget_password_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'pressentation/views/auth/login_screen.dart';
@@ -7,7 +8,9 @@ import 'pressentation/views/event/create_event.dart';
 import 'pressentation/views/homepage/home_page.dart';
 import 'themes/app_theme.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MainApp());
 }
 
