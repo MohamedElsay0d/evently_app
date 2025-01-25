@@ -32,4 +32,10 @@ class FirebaseService {
     }
     return eventsSnapshot.docs.map((doc) => doc.data()).toList();
   }
+
+  static Future<void> deleteEventFromFirebase(EventModel event) async {
+    CollectionReference eventsCollection = getEventsCollection();
+    await eventsCollection.doc(event.id).delete();
+    log('Event deleted from Firebase');
+  }
 }

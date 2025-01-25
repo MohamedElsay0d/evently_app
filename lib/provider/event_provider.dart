@@ -30,4 +30,34 @@ class EventsProvider with ChangeNotifier {
     selectedCategory = category;
     getAllEVents();
   }
+
+  void deleteEvent(EventModel event) async {
+    await FirebaseService.deleteEventFromFirebase(event);
+    getAllEVents();
+  }
+
+
+  
 }
+
+
+
+
+//------------------------- filtering in client side ----------------------------
+
+  /*
+  List<EventModel> filterdEvents = [];
+  Future<void> getEventsToFilter() async{
+    events = await FirebaseService.getEventsFromFirebase(null);
+    filterEvents(selectedCategory);
+  }
+  void filterEvents(Category? category) {
+    selectedCategory = category;
+    if(category == null){
+      filterdEvents = events;
+    }else{
+      filterdEvents = events.where((element) => element == category).toList();
+    }
+    notifyListeners();
+  }
+  */
