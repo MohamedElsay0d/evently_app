@@ -26,6 +26,11 @@ class AppTheme {
         fontWeight: FontWeight.w500,
         color: white,
       ),
+      titleMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w500,
+        color: primaryColor,
+      ),
     ),
     primaryColor: primaryColor,
     scaffoldBackgroundColor: lightBackgroundColor,

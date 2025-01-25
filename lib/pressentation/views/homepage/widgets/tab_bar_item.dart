@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../../Data/models/category_model.dart';
 import '../../../../themes/app_theme.dart';
 
 class TabBarItem extends StatelessWidget {

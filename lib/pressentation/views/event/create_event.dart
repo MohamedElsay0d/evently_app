@@ -7,8 +7,8 @@ import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
 import '../homepage/widgets/tab_bar_item.dart';
-import 'custom_row.dart';
-import 'detect_location.dart';
+import 'widgets/custom_row.dart';
+import 'widgets/detect_location.dart';
 
 class CreateEvent extends StatefulWidget {
   static const String routeName = '/create_event';
@@ -168,7 +168,10 @@ class _CreateEventState extends State<CreateEvent> {
                           .bodyLarge
                           ?.copyWith(fontWeight: FontWeight.normal),
                     ),
-                    DetectLocation(),
+                    DetectLocationTime(
+                      title: 'Select Location',
+                      image: 'location',
+                    ),
                     SizedBox(height: 12),
                     CustomButton(
                       label: 'Create Event',

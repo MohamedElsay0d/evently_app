@@ -6,6 +6,7 @@ import 'pressentation/views/auth/forget_password_screen.dart';
 import 'pressentation/views/auth/login_screen.dart';
 import 'pressentation/views/auth/register_screen.dart';
 import 'pressentation/views/event/create_event.dart';
+import 'pressentation/views/event/event_details.dart';
 import 'pressentation/views/homepage/home_page.dart';
 import 'provider/event_provider.dart';
 import 'themes/app_theme.dart';
@@ -37,6 +38,7 @@ class MainApp extends StatelessWidget {
             const ForgetPasswordScreen(),
         HomePage.routeName: (context) => const HomePage(),
         CreateEvent.routeName: (context) => const CreateEvent(),
+        EventDetails.routeName: (context) => const EventDetails(),
       },
     );
   }
