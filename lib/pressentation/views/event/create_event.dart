@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Data/models/category_model.dart';
 import '../../../Data/models/event_model.dart';
-import '../../../Data/services/firebase_service.dart';
 import '../../../provider/event_provider.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';

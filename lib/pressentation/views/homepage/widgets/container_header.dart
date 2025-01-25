@@ -1,8 +1,10 @@
 import 'package:evently_app/pressentation/views/homepage/widgets/tab_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Data/models/category_model.dart';
 import '../../../../Data/models/user_info.dart';
+import '../../../../provider/event_provider.dart';
 import '../../../../themes/app_theme.dart';
 
 class ContainerHeader extends StatefulWidget {
@@ -26,6 +28,7 @@ class _ContainerHeaderState extends State<ContainerHeader> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     return Container(
       padding: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
       width: double.infinity,
@@ -63,8 +66,10 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                           isScrollable: true,
                           labelPadding: EdgeInsets.only(right: 16),
                           onTap: (index) {
+                            if (selectedIndex == index) return;
                             selectedIndex = index;
-                            setState(() {});
+                            eventsProvider.changeSelectedCategory(
+                                index == 0 ? null : Category.items[index - 1]);
                           },
                           tabs: [
                             TabBarItem(

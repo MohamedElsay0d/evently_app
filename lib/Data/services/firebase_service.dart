@@ -19,10 +19,17 @@ class FirebaseService {
     log('Event added to Firebase');
   }
 
-  static Future<List<EventModel>> getEventsFromFirebase() async {
+  static Future<List<EventModel>> getEventsFromFirebase(String? catId) async {
     CollectionReference<EventModel> eventsCollection = getEventsCollection();
-    QuerySnapshot<EventModel> eventsSnapshot =
-        await eventsCollection.orderBy('dateTime').get();
+    QuerySnapshot<EventModel> eventsSnapshot;
+    if (catId == null) {
+      eventsSnapshot = await eventsCollection.orderBy('dateTime').get();
+    } else {
+      eventsSnapshot = await eventsCollection
+          .where('categoryId', isEqualTo: catId)
+          .orderBy('dateTime')
+          .get();
+    }
     return eventsSnapshot.docs.map((doc) => doc.data()).toList();
   }
 }

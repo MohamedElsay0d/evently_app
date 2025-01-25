@@ -37,7 +37,12 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
-          onTap: (index) => setState(() => _currentIndex = index),
+          onTap: (index) {
+            if (_currentIndex == index) return;
+            setState(() {
+              _currentIndex = index;
+            });
+          },
           items: [
             BottomNavigationBarItem(
               icon: NavBarIcon(

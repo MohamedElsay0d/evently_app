@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../Data/models/event_model.dart';
-import '../../../../../Data/services/firebase_service.dart';
 import '../../../../../provider/event_provider.dart';
 import '../../widgets/container_header.dart';
 import '../../widgets/event_item.dart';
 
-class HomeTap extends StatefulWidget {
+class HomeTap extends StatelessWidget {
   const HomeTap({super.key});
 
   @override
-  State<HomeTap> createState() => _HomeTapState();
-}
-
-class _HomeTapState extends State<HomeTap> {
-  List<EventModel> events = [];
-  @override
   Widget build(BuildContext context) {
-    if (events.isEmpty) {
-      getEvents();
-    }
     return Column(
       children: [
         ContainerHeader(),
@@ -51,10 +39,5 @@ class _HomeTapState extends State<HomeTap> {
         ),
       ],
     );
-  }
-
-  Future<void> getEvents() async {
-    events = await FirebaseService.getEventsFromFirebase();
-    setState(() {});
   }
 }

@@ -66,6 +66,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: widget.pass ? TextInputType.visiblePassword : null,
       maxLines: widget.maxLines,
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 }
