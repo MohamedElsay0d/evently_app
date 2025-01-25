@@ -1,17 +1,22 @@
-import 'package:evently_app/pressentation/views/auth/forget_password_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'pressentation/views/auth/forget_password_screen.dart';
 import 'pressentation/views/auth/login_screen.dart';
 import 'pressentation/views/auth/register_screen.dart';
 import 'pressentation/views/event/create_event.dart';
 import 'pressentation/views/homepage/home_page.dart';
+import 'provider/event_provider.dart';
 import 'themes/app_theme.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => EventsProvider() , 
+    child: const MainApp(),
+    ));
 }
 
 class MainApp extends StatelessWidget {

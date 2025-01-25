@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../Data/models/category_model.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../Data/services/firebase_service.dart';
+import '../../../provider/event_provider.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -57,11 +61,11 @@ class _CreateEventState extends State<CreateEvent> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.asset(
-                      'assets/images/${Category.items.sublist(1)[selectedIndex].image}.png'),
+                      'assets/images/${Category.items[selectedIndex].image}.png'),
                 ),
                 SizedBox(height: 16),
                 DefaultTabController(
-                  length: Category.items.sublist(1).length,
+                  length: Category.items.length,
                   initialIndex: selectedIndex,
                   child: TabBar(
                     indicator: BoxDecoration(),
@@ -74,12 +78,12 @@ class _CreateEventState extends State<CreateEvent> {
                       setState(() {});
                     },
                     tabs: Category.items
-                        .sublist(1)
                         .map(
                           (category) => TabBarItem(
-                            category: category,
+                            label: category.name,
+                            icon: category.icon,
                             isSelected: selectedIndex ==
-                                Category.items.sublist(1).indexOf(category),
+                                Category.items.indexOf(category),
                             backgroundColor: AppTheme.white,
                             foregroundColor: AppTheme.primaryColor,
                             selectedBackgroundColor: AppTheme.primaryColor,
@@ -171,7 +175,7 @@ class _CreateEventState extends State<CreateEvent> {
                     SizedBox(height: 12),
                     CustomButton(
                       label: 'Create Event',
-                      onPress: () {
+                      onPress: () async {
                         if (formKey.currentState!.validate() &&
                             selectedDate != null &&
                             selectedTime != null) {
@@ -180,9 +184,11 @@ class _CreateEventState extends State<CreateEvent> {
                             description: descriptionController.text,
                             date: selectedDate!,
                             time: selectedTime!,
-                            category: Category.items.sublist(1)[selectedIndex],
+                            category: Category.items[selectedIndex],
                           );
-                          FirebaseService.addEventToFirebase(event);
+                          Provider.of<EventsProvider>(context, listen: false)
+                              .addEvent(event);
+                          Navigator.pop(context);
                         }
                       },
                     ),

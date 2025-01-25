@@ -12,34 +12,33 @@ class Category {
       required this.image});
 
   static final List<Category> items = [
-    Category(id: '1', name: 'All', icon: Icons.sync_alt_outlined, image: 'Exhibition'),
     Category(
-        id: '2',
+        id: '1',
         name: 'Sport',
         icon: Icons.pedal_bike_outlined,
         image: 'sport'),
     Category(
-        id: '3',
+        id: '2',
         name: 'Birthday',
         icon: Icons.cake_outlined,
         image: 'birthday'),
     Category(
-        id: '4',
+        id: '3',
         name: 'Meeting',
         icon: Icons.meeting_room_outlined,
         image: 'meeting'),
     Category(
-        id: '5',
+        id: '4',
         name: 'Gaming',
         icon: Icons.videogame_asset_outlined,
         image: 'gaming'),
     Category(
-        id: '6',
+        id: '5',
         name: 'Eating',
         icon: Icons.lunch_dining_outlined,
         image: 'eating'),
     Category(
-        id: '7',
+        id: '6',
         name: 'WorkShop',
         icon: Icons.workspaces_outlined,
         image: 'workshop'),

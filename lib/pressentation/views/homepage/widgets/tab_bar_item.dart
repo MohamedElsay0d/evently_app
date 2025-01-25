@@ -4,20 +4,22 @@ import '../../../../Data/models/category_model.dart';
 import '../../../../themes/app_theme.dart';
 
 class TabBarItem extends StatelessWidget {
-  final Category category;
   final bool isSelected;
   final Color backgroundColor;
   final Color foregroundColor;
   final Color selectedBackgroundColor;
   final Color selectedForegroundColor;
+  final String label ;
+  final IconData icon;
   const TabBarItem({
     super.key,
-    required this.category,
     this.isSelected = false,
     this.backgroundColor = AppTheme.white,
     this.foregroundColor = AppTheme.primaryColor,
     this.selectedBackgroundColor = AppTheme.white,
     this.selectedForegroundColor = AppTheme.primaryColor,
+    required this.label ,
+    required this.icon,
   });
 
   @override
@@ -32,14 +34,14 @@ class TabBarItem extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            category.icon,
+            icon,
             color: isSelected ? selectedForegroundColor : foregroundColor,
           ),
           const SizedBox(
             width: 8,
           ),
           Text(
-            category.name,
+            label,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: isSelected ? selectedForegroundColor : foregroundColor,
                 ),

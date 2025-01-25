@@ -55,31 +55,40 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                     SizedBox(height: 28),
                     DefaultTabController(
                       initialIndex: selectedIndex,
-                      length: Category.items.length,
+                      length: Category.items.length + 1,
                       child: TabBar(
-                        indicator: BoxDecoration(),
-                        dividerColor: Colors.transparent,
-                        tabAlignment: TabAlignment.start,
-                        isScrollable: true,
-                        labelPadding: EdgeInsets.only(right: 16),
-                        onTap: (index) {
-                          selectedIndex = index;
-                          setState(() {});
-                        },
-                        tabs: Category.items
-                            .map(
+                          indicator: BoxDecoration(),
+                          dividerColor: Colors.transparent,
+                          tabAlignment: TabAlignment.start,
+                          isScrollable: true,
+                          labelPadding: EdgeInsets.only(right: 16),
+                          onTap: (index) {
+                            selectedIndex = index;
+                            setState(() {});
+                          },
+                          tabs: [
+                            TabBarItem(
+                              label: 'All',
+                              icon: Icons.grid_view_rounded,
+                              isSelected: selectedIndex == 0,
+                              backgroundColor: AppTheme.primaryColor,
+                              foregroundColor: AppTheme.white,
+                              selectedBackgroundColor: AppTheme.white,
+                              selectedForegroundColor: AppTheme.primaryColor,
+                            ),
+                            ...Category.items.map(
                               (category) => TabBarItem(
-                                category: category,
+                                label: category.name,
+                                icon: category.icon,
                                 isSelected: selectedIndex ==
-                                    Category.items.indexOf(category),
+                                    Category.items.indexOf(category) + 1,
                                 backgroundColor: AppTheme.primaryColor,
                                 foregroundColor: AppTheme.white,
                                 selectedBackgroundColor: AppTheme.white,
                                 selectedForegroundColor: AppTheme.primaryColor,
                               ),
                             )
-                            .toList(),
-                      ),
+                          ]),
                     ),
                   ],
                 )

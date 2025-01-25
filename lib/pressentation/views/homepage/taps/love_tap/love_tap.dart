@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/event_item.dart';
 
 class LoveTap extends StatelessWidget {
   const LoveTap({super.key});
