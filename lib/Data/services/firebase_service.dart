@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/event_model.dart';
@@ -16,7 +14,6 @@ class FirebaseService {
     CollectionReference eventsCollection = getEventsCollection();
     event.id = eventsCollection.doc().id;
     await eventsCollection.doc(event.id).set(event);
-    log('Event added to Firebase');
   }
 
   static Future<List<EventModel>> getEventsFromFirebase(String? catId) async {
@@ -36,6 +33,10 @@ class FirebaseService {
   static Future<void> deleteEventFromFirebase(EventModel event) async {
     CollectionReference eventsCollection = getEventsCollection();
     await eventsCollection.doc(event.id).delete();
-    log('Event deleted from Firebase');
+  }
+
+  static Future<void> updateEventToFirebase(EventModel event) async {
+    CollectionReference eventsCollection = getEventsCollection();
+    await eventsCollection.doc(event.id).update(event.toJson());
   }
 }

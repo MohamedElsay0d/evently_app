@@ -13,7 +13,7 @@ class EventsProvider with ChangeNotifier {
     getAllEVents();
   }
 
-  void getAllEVents() async {
+  Future<void> getAllEVents() async {
     isLoading = true;
     notifyListeners();
     events = await FirebaseService.getEventsFromFirebase(selectedCategory?.id);
@@ -21,7 +21,7 @@ class EventsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addEvent(EventModel event) async {
+  Future<void> addEvent(EventModel event) async {
     await FirebaseService.addEventToFirebase(event);
     getAllEVents();
   }
@@ -31,13 +31,15 @@ class EventsProvider with ChangeNotifier {
     getAllEVents();
   }
 
-  void deleteEvent(EventModel event) async {
+  Future<void> deleteEvent(EventModel event) async {
     await FirebaseService.deleteEventFromFirebase(event);
     getAllEVents();
   }
 
-
-  
+  Future<void> updateEvent(EventModel event) async {
+    await FirebaseService.updateEventToFirebase(event);
+    getAllEVents();
+  }
 }
 
 

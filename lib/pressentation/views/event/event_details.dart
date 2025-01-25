@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../provider/event_provider.dart';
 import '../../../themes/app_theme.dart';
+import 'edit_event.dart';
 import 'widgets/detect_location.dart';
 
 class EventDetails extends StatelessWidget {
@@ -38,7 +39,12 @@ class EventDetails extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return EditEvent(event);
+              }));
+            },
             icon: Icon(
               Icons.edit_sharp,
               color: AppTheme.primaryColor,
