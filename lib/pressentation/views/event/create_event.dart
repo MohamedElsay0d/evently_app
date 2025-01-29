@@ -181,6 +181,7 @@ class _CreateEventState extends State<CreateEvent> {
                             selectedTime != null) {
                           EventModel event = EventModel(
                             title: titleController.text,
+                            userId: '',
                             description: descriptionController.text,
                             date: selectedDate!,
                             time: selectedTime!,

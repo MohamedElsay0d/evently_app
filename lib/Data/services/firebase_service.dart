@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/event_model.dart';
+import '../models/user_model.dart';
 
 class FirebaseService {
   static CollectionReference<EventModel> getEventsCollection() =>
@@ -8,6 +10,12 @@ class FirebaseService {
             fromFirestore: (docSnapshot, _) =>
                 EventModel.fromJson(docSnapshot.data()!),
             toFirestore: (event, _) => event.toJson(),
+          );
+  static CollectionReference<UserModel> getUsersCollection() =>
+      FirebaseFirestore.instance.collection('users').withConverter<UserModel>(
+            fromFirestore: (docSnapshot, _) =>
+                UserModel.fromJson(docSnapshot.data()!),
+            toFirestore: (user, _) => user.toJson(),
           );
 
   static Future<void> addEventToFirebase(EventModel event) async {
@@ -38,5 +46,41 @@ class FirebaseService {
   static Future<void> updateEventToFirebase(EventModel event) async {
     CollectionReference eventsCollection = getEventsCollection();
     await eventsCollection.doc(event.id).update(event.toJson());
+  }
+
+  static Future<UserModel> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    UserModel user = UserModel(
+      id: userCredential.user!.uid,
+      name: name,
+      email: email,
+      favoriteEventsId: [],
+    );
+
+    CollectionReference<UserModel> usersCollection = getUsersCollection();
+    await usersCollection.doc(user.id).set(user);
+    return user;
+  }
+
+  static Future<UserModel> login({
+    required String email,
+    required String password,
+  }) async {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    CollectionReference<UserModel> usersCollection = getUsersCollection();
+    DocumentSnapshot<UserModel> donSnapshot = await usersCollection.doc(userCredential.user!.uid).get();
+    return donSnapshot.data()!;
   }
 }

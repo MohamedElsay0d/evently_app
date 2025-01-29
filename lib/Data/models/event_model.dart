@@ -5,6 +5,7 @@ import 'category_model.dart';
 
 class EventModel {
   String? id;
+  String userId ;
   String title;
   String description;
   DateTime date;
@@ -13,6 +14,7 @@ class EventModel {
 
   EventModel({
     this.id = '',
+    required this.userId,
     required this.title,
     required this.description,
     required this.date,
@@ -28,6 +30,7 @@ class EventModel {
     dateTime = Timestamp.fromDate(_dateTime);
     return {
       'id': id,
+      'userId': userId,
       'title': title,
       'description': description,
       'categoryId': category.id,
@@ -41,6 +44,7 @@ class EventModel {
     TimeOfDay time = TimeOfDay.fromDateTime(date);
     return EventModel(
       id: json['id'],
+      userId: json['userId'],
       title: json['title'],
       description: json['description'],
       date: date,

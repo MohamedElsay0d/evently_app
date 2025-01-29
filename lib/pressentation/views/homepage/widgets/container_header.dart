@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../Data/models/category_model.dart';
-import '../../../../Data/models/user_info.dart';
+import '../../../../Data/models/user_model.dart';
 import '../../../../provider/event_provider.dart';
 import '../../../../themes/app_theme.dart';
 
@@ -16,12 +16,11 @@ class ContainerHeader extends StatefulWidget {
 }
 
 class _ContainerHeaderState extends State<ContainerHeader> {
-  final User user = User(
+  final UserModel user = UserModel(
     id: '1',
     name: 'Mohamed ElSayed',
     email: 'mohamedelsayed@gmail.com',
-    phone: '01203654153',
-    image: 'route',
+    favoriteEventsId: [],
   );
   int selectedIndex = 0;
 
@@ -103,7 +102,7 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                     Row(
                       children: [
                         Image.asset(
-                          'assets/images/${user.image}.png',
+                          'assets/images/route.png',
                         ),
                         const SizedBox(width: 8),
                         Expanded(

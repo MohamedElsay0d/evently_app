@@ -162,6 +162,7 @@ class _EditEventState extends State<EditEvent> {
                           selectedTime != null) {
                         EventModel updateEvent = EventModel(
                           id: widget.event.id,
+                          userId: widget.event.userId,
                           title: titleController.text.isEmpty
                               ? widget.event.title
                               : titleController.text,
