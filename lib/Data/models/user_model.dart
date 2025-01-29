@@ -20,11 +20,11 @@ class UserModel {
     };
   }
 
-  UserModel.fromJson(Map<String, dynamic> json) :
-     this(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      favoriteEventsId: json['favoriteEventsId'],
-    );
+  UserModel.fromJson(Map<String, dynamic> json)
+      : this(
+          id: json['id'],
+          name: json['name'],
+          email: json['email'],
+          favoriteEventsId: (json['favoriteEventsId']as List).cast<String>(),
+        );
 }

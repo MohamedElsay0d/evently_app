@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class ButtonWithImage extends StatelessWidget {
   final String icon;
-  const ButtonWithImage({super.key, required this.icon});
+  final Function()? onPressed;
+  ButtonWithImage({super.key, required this.icon , this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ButtonWithImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: icon == 'google'
             ? MainAxisAlignment.center

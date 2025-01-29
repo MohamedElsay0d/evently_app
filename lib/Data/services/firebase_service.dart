@@ -83,4 +83,8 @@ class FirebaseService {
     DocumentSnapshot<UserModel> donSnapshot = await usersCollection.doc(userCredential.user!.uid).get();
     return donSnapshot.data()!;
   }
+
+  static Future<void> logout() async{
+    FirebaseAuth.instance.signOut(); 
+  }
 }

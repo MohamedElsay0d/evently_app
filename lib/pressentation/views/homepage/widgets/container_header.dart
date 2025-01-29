@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../Data/models/category_model.dart';
-import '../../../../Data/models/user_model.dart';
 import '../../../../provider/event_provider.dart';
+import '../../../../provider/user_provider.dart';
 import '../../../../themes/app_theme.dart';
 
 class ContainerHeader extends StatefulWidget {
@@ -16,16 +16,11 @@ class ContainerHeader extends StatefulWidget {
 }
 
 class _ContainerHeaderState extends State<ContainerHeader> {
-  final UserModel user = UserModel(
-    id: '1',
-    name: 'Mohamed ElSayed',
-    email: 'mohamedelsayed@gmail.com',
-    favoriteEventsId: [],
-  );
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+        UsersProvider usersProvider = Provider.of<UsersProvider>(context,listen: false);
     final textTheme = Theme.of(context).textTheme;
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     return Container(
@@ -51,7 +46,7 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                       textAlign: TextAlign.start,
                     ),
                     Text(
-                      user.name,
+                      usersProvider.currentUser!.name,
                       style: textTheme.titleLarge,
                     ),
                     SizedBox(height: 28),
@@ -110,12 +105,12 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                user.name,
+                                usersProvider.currentUser!.name,
                                 style: textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.bold, fontSize: 24),
                               ),
                               Text(
-                                user.email,
+                                usersProvider.currentUser!.email,
                                 style: textTheme.bodyLarge
                                     ?.copyWith(color: AppTheme.white),
                               ),

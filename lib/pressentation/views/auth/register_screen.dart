@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:evently_app/pressentation/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../Data/services/firebase_service.dart';
+import '../../../provider/user_provider.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -23,6 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    UsersProvider usersProvider = Provider.of<UsersProvider>(context,listen: false);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -135,6 +139,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onPress: () {
                     if (formKey.currentState!.validate()) {
                       log('Register');
+                      FirebaseService.register(
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      ).then((user){
+                        log('User: $user');
+                        usersProvider.updateUser(user);
+                        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+                      }).catchError((error){
+                        log('Error: $error');
+                      });
                     }
                   },
                 ),

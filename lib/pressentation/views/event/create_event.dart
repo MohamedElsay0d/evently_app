@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../Data/models/category_model.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../provider/event_provider.dart';
+import '../../../provider/user_provider.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -181,7 +182,7 @@ class _CreateEventState extends State<CreateEvent> {
                             selectedTime != null) {
                           EventModel event = EventModel(
                             title: titleController.text,
-                            userId: '',
+                            userId: Provider.of<UsersProvider>(context,listen: false).currentUser!.id,
                             description: descriptionController.text,
                             date: selectedDate!,
                             time: selectedTime!,

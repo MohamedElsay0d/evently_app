@@ -9,15 +9,21 @@ import 'pressentation/views/event/create_event.dart';
 import 'pressentation/views/event/event_details.dart';
 import 'pressentation/views/homepage/home_page.dart';
 import 'provider/event_provider.dart';
+import 'provider/user_provider.dart';
 import 'themes/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(ChangeNotifierProvider(
-    create: (_) => EventsProvider() , 
-    child: const MainApp(),
-    ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => EventsProvider()),
+        ChangeNotifierProvider(create: (context) => UsersProvider()),
+      ],
+      child: const MainApp(),
+    )
+  );
 }
 
 class MainApp extends StatelessWidget {
