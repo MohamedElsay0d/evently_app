@@ -16,37 +16,46 @@ class LoveTap extends StatelessWidget {
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     List<String> favoriteEvents =
         Provider.of<UsersProvider>(context).currentUser!.favoriteEventsId;
-    eventsProvider.getFavoriteEvents(favoriteEvents);
 
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: SafeArea(
-        child: Column(
-          children: [
-            CustomTextFormField(
-              hintText: 'Search for Event',
-              icon: 'search',
-              onChanged: (value) {
-                log(value);
-              },
-            ),
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: eventsProvider.favoriteEvents.length,
-                itemBuilder: (context, index) {
-                  return EventItem(
-                    event: eventsProvider.favoriteEvents[index],
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 8);
-                },
+    return FutureBuilder(
+        future: eventsProvider.getFavoriteEvents(favoriteEvents),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    CustomTextFormField(
+                      hintText: 'Search for Event',
+                      icon: 'search',
+                      onChanged: (value) {
+                        log(value);
+                      },
+                    ),
+                    Expanded(
+                      child: ListView.separated(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        itemCount: eventsProvider.favoriteEvents.length,
+                        itemBuilder: (context, index) {
+                          return EventItem(
+                            event: eventsProvider.favoriteEvents[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 8);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              ),
-          ],
-        ),
-      ),
-    );
+            );
+          }
+        });
   }
 }
