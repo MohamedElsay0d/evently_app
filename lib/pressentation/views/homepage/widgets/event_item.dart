@@ -1,8 +1,10 @@
 import 'package:evently_app/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Data/models/event_model.dart';
+import '../../../../provider/user_provider.dart';
 import '../../event/event_details.dart';
 
 class EventItem extends StatelessWidget {
@@ -11,10 +13,12 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(EventDetails.routeName, arguments: event);
+        Navigator.of(context)
+            .pushNamed(EventDetails.routeName, arguments: event);
       },
       child: Stack(
         children: [
@@ -58,7 +62,7 @@ class EventItem extends StatelessWidget {
             left: 4,
             child: Container(
               margin: const EdgeInsets.all(4),
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: AppTheme.white,
@@ -73,9 +77,17 @@ class EventItem extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (usersProvider.checkIsFavorite(event.id)) {
+                      usersProvider.removeFromFavorites(event.id);
+                    } else {
+                      usersProvider.addToFavorites(event.id);
+                    }
+                  },
                   icon: Icon(
-                    Icons.favorite_border,
+                    usersProvider.checkIsFavorite(event.id)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     color: AppTheme.primaryColor,
                   ),
                 ),

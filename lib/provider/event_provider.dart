@@ -6,6 +6,7 @@ import '../Data/services/firebase_service.dart';
 
 class EventsProvider with ChangeNotifier {
   List<EventModel> events = [];
+  List<EventModel> favoriteEvents = [];
   bool isLoading = false;
   Category? selectedCategory;
 
@@ -40,6 +41,14 @@ class EventsProvider with ChangeNotifier {
     await FirebaseService.updateEventToFirebase(event);
     getAllEVents();
   }
+
+  Future<void> getFavoriteEvents(List<String> favoriteIds) async {
+    isLoading = true;
+    favoriteEvents = events.where((event) => favoriteIds.contains(event.id)).toList();
+    isLoading = false;
+    notifyListeners();
+  }
+
 }
 
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'category_model.dart';
 
 class EventModel {
-  String? id;
+  String id;
   String userId ;
   String title;
   String description;

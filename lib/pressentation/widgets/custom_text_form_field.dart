@@ -67,7 +67,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       keyboardType: widget.pass ? TextInputType.visiblePassword : null,
       maxLines: widget.maxLines,
       onTapOutside: (event) {
-        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
       },
     );
   }
