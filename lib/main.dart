@@ -44,7 +44,7 @@ class MainApp extends StatelessWidget {
             const ForgetPasswordScreen(),
         HomePage.routeName: (context) => const HomePage(),
         CreateEvent.routeName: (context) => const CreateEvent(),
-        EventDetails.routeName: (context) => const EventDetails(),
+        EventDetails.routeName: (context) =>  EventDetails(),
       },
     );
   }

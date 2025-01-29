@@ -48,7 +48,6 @@ class EventsProvider with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
-
 }
 
 

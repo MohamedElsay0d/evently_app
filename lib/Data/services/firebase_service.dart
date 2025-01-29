@@ -80,12 +80,13 @@ class FirebaseService {
       password: password,
     );
     CollectionReference<UserModel> usersCollection = getUsersCollection();
-    DocumentSnapshot<UserModel> donSnapshot = await usersCollection.doc(userCredential.user!.uid).get();
+    DocumentSnapshot<UserModel> donSnapshot =
+        await usersCollection.doc(userCredential.user!.uid).get();
     return donSnapshot.data()!;
   }
 
-  static Future<void> logout() async{
-    FirebaseAuth.instance.signOut(); 
+  static Future<void> logout() async {
+    FirebaseAuth.instance.signOut();
   }
 
   static Future<void> addEventToFavorite(String eventId) async {

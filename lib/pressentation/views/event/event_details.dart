@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -10,13 +11,13 @@ import 'widgets/detect_location.dart';
 
 class EventDetails extends StatelessWidget {
   static const String routeName = 'event_details';
-  const EventDetails({
+  EventDetails({
     super.key,
   });
-
   @override
   Widget build(BuildContext context) {
     EventModel event = ModalRoute.of(context)!.settings.arguments as EventModel;
+    bool isEditable = FirebaseAuth.instance.currentUser!.uid == event.userId;
     TextTheme textTheme = Theme.of(context).textTheme;
     final formattedDate = DateFormat('d MMMM y').format(event.date);
     return Scaffold(
@@ -37,31 +38,33 @@ class EventDetails extends StatelessWidget {
               .titleLarge!
               .copyWith(color: AppTheme.primaryColor),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                return EditEvent(event);
-              }));
-            },
-            icon: Icon(
-              Icons.edit_sharp,
-              color: AppTheme.primaryColor,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              Provider.of<EventsProvider>(context, listen: false)
-                  .deleteEvent(event);
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.delete,
-              color: AppTheme.red,
-            ),
-          ),
-        ],
+        actions: isEditable
+            ? [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return EditEvent(event);
+                    }));
+                  },
+                  icon: Icon(
+                    Icons.edit_sharp,
+                    color: AppTheme.primaryColor,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Provider.of<EventsProvider>(context, listen: false)
+                        .deleteEvent(event);
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    color: AppTheme.red,
+                  ),
+                ),
+              ]
+            : [],
       ),
       body: SafeArea(
         child: Padding(
