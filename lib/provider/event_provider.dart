@@ -46,7 +46,7 @@ class EventsProvider with ChangeNotifier {
     isLoading = true;
     favoriteEvents = events.where((event) => favoriteIds.contains(event.id)).toList();
     isLoading = false;
-    notifyListeners();
+    // notifyListeners();
   }
 }
 

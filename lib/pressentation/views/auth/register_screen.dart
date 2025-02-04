@@ -26,7 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    UsersProvider usersProvider = Provider.of<UsersProvider>(context,listen: false);
+    UsersProvider usersProvider =
+        Provider.of<UsersProvider>(context, listen: false);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -40,10 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           title: Text(
             'Register',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: AppTheme.black),
+            style: Theme.of(context).textTheme.titleLarge!,
           ),
         ),
         body: SafeArea(
@@ -143,11 +141,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         name: nameController.text.trim(),
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
-                      ).then((user){
+                      ).then((user) {
                         log('User: $user');
                         usersProvider.updateUser(user);
-                        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
-                      }).catchError((error){
+                        Navigator.of(context)
+                            .pushReplacementNamed(LoginScreen.routeName);
+                      }).catchError((error) {
                         log('Error: $error');
                       });
                     }

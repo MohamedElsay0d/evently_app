@@ -15,15 +15,17 @@ import 'themes/app_theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => EventsProvider()),
-        ChangeNotifierProvider(create: (context) => UsersProvider()),
-      ],
-      child: const MainApp(),
-    )
-  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => EventsProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => UsersProvider(),
+      ),
+    ],
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -35,7 +37,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),
@@ -44,7 +46,7 @@ class MainApp extends StatelessWidget {
             const ForgetPasswordScreen(),
         HomePage.routeName: (context) => const HomePage(),
         CreateEvent.routeName: (context) => const CreateEvent(),
-        EventDetails.routeName: (context) =>  EventDetails(),
+        EventDetails.routeName: (context) => EventDetails(),
       },
     );
   }

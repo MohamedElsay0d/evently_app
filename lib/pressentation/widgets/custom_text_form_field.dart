@@ -39,6 +39,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       obscureText: !_isPasswordVisible,
       decoration: InputDecoration(
+        labelStyle: Theme.of(context).textTheme.bodyLarge ,
         prefixIcon: widget.icon != null
             ? SvgPicture.asset(
                 'assets/icons/${widget.icon}.svg',

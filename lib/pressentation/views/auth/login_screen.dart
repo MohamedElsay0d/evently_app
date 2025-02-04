@@ -104,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: 'Login',
                   onPress: () {
                     if (formKey.currentState!.validate()) {
-                      log('Login');
                       FirebaseService.login(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),

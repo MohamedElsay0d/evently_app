@@ -56,10 +56,19 @@ class _CreateEventState extends State<CreateEvent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                      'assets/images/${Category.items[selectedIndex].image}.png'),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: AppTheme.primaryColor,
+                      width: 1,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                        'assets/images/${Category.items[selectedIndex].image}.png'),
+                  ),
                 ),
                 SizedBox(height: 16),
                 DefaultTabController(
@@ -182,7 +191,10 @@ class _CreateEventState extends State<CreateEvent> {
                             selectedTime != null) {
                           EventModel event = EventModel(
                             title: titleController.text,
-                            userId: Provider.of<UsersProvider>(context,listen: false).currentUser!.id,
+                            userId: Provider.of<UsersProvider>(context,
+                                    listen: false)
+                                .currentUser!
+                                .id,
                             description: descriptionController.text,
                             date: selectedDate!,
                             time: selectedTime!,
