@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../provider/settings_provider.dart';
 import '../../../../themes/app_theme.dart';
 
 class CustomRow extends StatelessWidget {
@@ -27,8 +29,10 @@ class CustomRow extends StatelessWidget {
         SvgPicture.asset(
           'assets/icons/${title.toLowerCase()}.svg',
           // rehandle
-          colorFilter: ColorFilter.mode( 
-            AppTheme.white,
+          colorFilter: ColorFilter.mode(
+            Provider.of<SettingsProvider>(context).getIsDark
+                ? AppTheme.white
+                : AppTheme.black,
             BlendMode.srcIn,
           ),
         ),

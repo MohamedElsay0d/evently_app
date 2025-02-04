@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../Data/models/event_model.dart';
+import '../../../../provider/settings_provider.dart';
 import '../../../../provider/user_provider.dart';
 import '../../event/event_details.dart';
 
@@ -15,6 +16,7 @@ class EventItem extends StatelessWidget {
   Widget build(BuildContext context) {
     UsersProvider usersProvider = Provider.of<UsersProvider>(context);
     final textTheme = Theme.of(context).textTheme;
+    bool isDark = Provider.of<SettingsProvider>(context).getIsDark;
     return InkWell(
       onTap: () {
         Navigator.of(context)
@@ -43,7 +45,7 @@ class EventItem extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 // rehandle
-                color: AppTheme.white,
+                color: isDark ? Colors.transparent : AppTheme.white,
               ),
               child: Column(
                 children: [
@@ -75,7 +77,7 @@ class EventItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   // rehandle
-                  color: Colors.white,
+                  color: isDark ? Colors.transparent : AppTheme.white,
                 ),
                 child: Row(children: [
                   Expanded(

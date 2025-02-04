@@ -9,6 +9,7 @@ import 'pressentation/views/event/create_event.dart';
 import 'pressentation/views/event/event_details.dart';
 import 'pressentation/views/homepage/home_page.dart';
 import 'provider/event_provider.dart';
+import 'provider/settings_provider.dart';
 import 'provider/user_provider.dart';
 import 'themes/app_theme.dart';
 
@@ -23,6 +24,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (context) => UsersProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (context) => SettingsProvider(),
+      )
     ],
     child: const MainApp(),
   ));
@@ -37,7 +41,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.light,
+      themeMode: Provider.of<SettingsProvider>(context).darkTheme,
       initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName: (context) => const LoginScreen(),

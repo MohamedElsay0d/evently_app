@@ -12,7 +12,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     textTheme: const TextTheme(
       bodyMedium: TextStyle(
-        color: white,
+        color: black,
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
