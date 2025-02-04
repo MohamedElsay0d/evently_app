@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../Data/services/firebase_service.dart';
 import '../../../provider/user_provider.dart';
@@ -27,7 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    UsersProvider usersProvider = Provider.of<UsersProvider>(context,listen: false);
+    UsersProvider usersProvider =
+        Provider.of<UsersProvider>(context, listen: false);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -50,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(children: [
                     CustomTextFormField(
                       icon: 'email',
-                      hintText: 'Email',
+                      hintText: AppLocalizations.of(context)!.email,
                       controller: emailController,
                       validator: (value) {
                         String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     CustomTextFormField(
                       icon: 'password',
-                      hintText: 'Password',
+                      hintText: AppLocalizations.of(context)!.password,
                       controller: passwordController,
                       pass: true,
                       validator: (value) {
@@ -85,23 +87,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ]),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
+                Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  TextButton(
                     child: Text(
-                      'Forgot Password?',
+                      AppLocalizations.of(context)!.forgetPassword,
                     ),
                     onPressed: () {
                       Navigator.of(context)
                           .pushNamed(ForgetPasswordScreen.routeName);
                     },
                   ),
-                ),
+                ]),
                 SizedBox(
                   height: 12,
                 ),
                 CustomButton(
-                  label: 'Login',
+                  label: AppLocalizations.of(context)!.login,
                   onPress: () {
                     if (formKey.currentState!.validate()) {
                       FirebaseService.login(

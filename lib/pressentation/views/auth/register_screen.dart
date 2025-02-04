@@ -3,10 +3,9 @@ import 'dart:developer';
 import 'package:evently_app/pressentation/views/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Data/services/firebase_service.dart';
 import '../../../provider/user_provider.dart';
-import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_text_form_field.dart';
 
@@ -133,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 22,
                 ),
                 CustomButton(
-                  label: 'Create Account',
+                  label: AppLocalizations.of(context)!.register,
                   onPress: () {
                     if (formKey.currentState!.validate()) {
                       log('Register');
