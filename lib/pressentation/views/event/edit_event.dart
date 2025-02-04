@@ -40,154 +40,155 @@ class _EditEventState extends State<EditEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(),
         body: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                    'assets/images/${Category.items[selectedIndex].image}.png'),
-              ),
-              SizedBox(height: 16),
-              DefaultTabController(
-                length: Category.items.length,
-                initialIndex: selectedIndex,
-                child: TabBar(
-                  indicator: BoxDecoration(),
-                  dividerColor: Colors.transparent,
-                  tabAlignment: TabAlignment.start,
-                  isScrollable: true,
-                  labelPadding: EdgeInsets.only(right: 16),
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                  tabs: Category.items
-                      .map(
-                        (category) => TabBarItem(
-                          label: category.name,
-                          icon: category.icon,
-                          isSelected:
-                              selectedIndex == Category.items.indexOf(category),
-                          backgroundColor: AppTheme.white,
-                          foregroundColor: AppTheme.primaryColor,
-                          selectedBackgroundColor: AppTheme.primaryColor,
-                          selectedForegroundColor: AppTheme.white,
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-              SizedBox(height: 12),
-              Column(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Title',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.normal),
-                        ),
-                        CustomTextFormField(
-                          hintText: widget.event.title,
-                          icon: 'event_title',
-                          controller: titleController,
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Description',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.normal),
-                        ),
-                        CustomTextFormField(
-                          hintText: widget.event.description,
-                          controller: descriptionController,
-                          maxLines: 5,
-                        ),
-                      ],
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                        'assets/images/${Category.items[selectedIndex].image}.png'),
+                  ),
+                  SizedBox(height: 16),
+                  DefaultTabController(
+                    length: Category.items.length,
+                    initialIndex: selectedIndex,
+                    child: TabBar(
+                      indicator: BoxDecoration(),
+                      dividerColor: Colors.transparent,
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      labelPadding: EdgeInsets.only(right: 16),
+                      onTap: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      tabs: Category.items
+                          .map(
+                            (category) => TabBarItem(
+                              label: category.name,
+                              icon: category.icon,
+                              isSelected: selectedIndex ==
+                                  Category.items.indexOf(category),
+                              backgroundColor: AppTheme.white,
+                              foregroundColor: AppTheme.primaryColor,
+                              selectedBackgroundColor: AppTheme.primaryColor,
+                              selectedForegroundColor: AppTheme.white,
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
-                  CustomRow(
-                    title: 'Date',
-                    selectedDate: selectedDate,
-                    selectedTime: null,
-                    onDateSelected: (date) {
-                      setState(() {
-                        selectedDate = date;
-                      });
-                    },
-                    onTimeSelected: (time) {},
-                  ),
-                  CustomRow(
-                    title: 'Time',
-                    selectedDate: null,
-                    selectedTime: selectedTime,
-                    onDateSelected: (date) {},
-                    onTimeSelected: (time) {
-                      setState(() {
-                        selectedTime = time;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Location',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.normal),
-                  ),
-                  DetectLocationTime(
-                    title: 'Select Location',
-                    image: 'location',
-                  ),
                   SizedBox(height: 12),
-                  CustomButton(
-                    label: 'Update Event',
-                    onPress: () async {
-                      if (formKey.currentState!.validate() &&
-                          selectedDate != null &&
-                          selectedTime != null) {
-                        EventModel updateEvent = EventModel(
-                          id: widget.event.id,
-                          userId: widget.event.userId,
-                          title: titleController.text.isEmpty
-                              ? widget.event.title
-                              : titleController.text,
-                          description: descriptionController.text.isEmpty
-                              ? widget.event.description
-                              : descriptionController.text,
-                          date: selectedDate!,
-                          time: selectedTime!,
-                          category: Category.items[selectedIndex],
-                        );
-                        Provider.of<EventsProvider>(context, listen: false)
-                            .updateEvent(updateEvent);
-                        Navigator.pushReplacementNamed(
-                            context, EventDetails.routeName,
-                            arguments: updateEvent);
-                      }
-                    },
-                  ),
-                  SizedBox(height: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Form(
+                        key: formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Title',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.normal),
+                            ),
+                            CustomTextFormField(
+                              hintText: widget.event.title,
+                              icon: 'event_title',
+                              controller: titleController,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Description',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.normal),
+                            ),
+                            CustomTextFormField(
+                              hintText: widget.event.description,
+                              controller: descriptionController,
+                              maxLines: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomRow(
+                        title: 'Date',
+                        selectedDate: selectedDate,
+                        selectedTime: null,
+                        onDateSelected: (date) {
+                          setState(() {
+                            selectedDate = date;
+                          });
+                        },
+                        onTimeSelected: (time) {},
+                      ),
+                      CustomRow(
+                        title: 'Time',
+                        selectedDate: null,
+                        selectedTime: selectedTime,
+                        onDateSelected: (date) {},
+                        onTimeSelected: (time) {
+                          setState(() {
+                            selectedTime = time;
+                          });
+                        },
+                      ),
+                      Text(
+                        'Location',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.normal),
+                      ),
+                      DetectLocationTime(
+                        title: 'Select Location',
+                        image: 'location',
+                      ),
+                      SizedBox(height: 12),
+                      CustomButton(
+                        label: 'Update Event',
+                        onPress: () async {
+                          if (formKey.currentState!.validate() &&
+                              selectedDate != null &&
+                              selectedTime != null) {
+                            EventModel updateEvent = EventModel(
+                              id: widget.event.id,
+                              userId: widget.event.userId,
+                              title: titleController.text.isEmpty
+                                  ? widget.event.title
+                                  : titleController.text,
+                              description: descriptionController.text.isEmpty
+                                  ? widget.event.description
+                                  : descriptionController.text,
+                              date: selectedDate!,
+                              time: selectedTime!,
+                              category: Category.items[selectedIndex],
+                            );
+                            Provider.of<EventsProvider>(context, listen: false)
+                                .updateEvent(updateEvent);
+                            Navigator.pushReplacementNamed(
+                                context, EventDetails.routeName,
+                                arguments: updateEvent);
+                          }
+                        },
+                      ),
+                      SizedBox(height: 12),
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

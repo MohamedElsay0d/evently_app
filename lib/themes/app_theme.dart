@@ -12,7 +12,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     textTheme: const TextTheme(
       bodyMedium: TextStyle(
-        color: black,
+        color: white,
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
@@ -91,7 +91,7 @@ class AppTheme {
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: primaryColor,
-      selectedItemColor: white ,
+      selectedItemColor: white,
       unselectedItemColor: white,
     ),
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -105,5 +105,104 @@ class AppTheme {
       ),
     ),
   );
-  static ThemeData darkTheme = ThemeData();
+
+  static ThemeData darkTheme = ThemeData(
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(
+        color: white,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyLarge: TextStyle(
+        color: white,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: white,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.w500,
+        color: primaryColor,
+      ),
+    ),
+    primaryColor: primaryColor,
+    scaffoldBackgroundColor: darkBackgroundColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: darkBackgroundColor,
+      foregroundColor: white,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        color: primaryColor,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+    inputDecorationTheme: const InputDecorationTheme(
+      hintStyle:
+          TextStyle(fontSize: 16, color: white, fontWeight: FontWeight.w500),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        borderSide: BorderSide(width: 1.0, color: AppTheme.primaryColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        borderSide: BorderSide(
+          width: 1.0,
+          color: AppTheme.primaryColor,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        borderSide: BorderSide(width: 1.0, color: AppTheme.red),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
+        borderSide: BorderSide(width: 1.0, color: AppTheme.red),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),                                                           
+        ),
+        backgroundColor: primaryColor,
+        foregroundColor: white,
+        textStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        minimumSize: const Size(double.infinity, 56),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: primaryColor,
+        textStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: darkBackgroundColor,
+      selectedItemColor: white,
+      unselectedItemColor: white,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: darkBackgroundColor,
+      foregroundColor: white,
+      shape: CircleBorder(
+        side: BorderSide(
+          color: white,
+          width: 4,
+        ),
+      ),
+    ),
+  );
 }

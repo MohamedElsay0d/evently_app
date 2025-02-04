@@ -26,7 +26,8 @@ class CustomRow extends StatelessWidget {
       children: [
         SvgPicture.asset(
           'assets/icons/${title.toLowerCase()}.svg',
-          colorFilter: ColorFilter.mode(
+          // rehandle
+          colorFilter: ColorFilter.mode( 
             AppTheme.white,
             BlendMode.srcIn,
           ),

@@ -42,7 +42,8 @@ class EventItem extends StatelessWidget {
               margin: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.transparent,
+                // rehandle
+                color: AppTheme.white,
               ),
               child: Column(
                 children: [
@@ -73,7 +74,8 @@ class EventItem extends StatelessWidget {
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Colors.transparent,
+                  // rehandle
+                  color: Colors.white,
                 ),
                 child: Row(children: [
                   Expanded(
