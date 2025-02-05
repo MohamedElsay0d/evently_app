@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Data/models/category_model.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../provider/event_provider.dart';
@@ -42,7 +43,7 @@ class _CreateEventState extends State<CreateEvent> {
           ),
         ),
         title: Text(
-          'Create Event',
+          AppLocalizations.of(context)!.createEvent,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -110,14 +111,14 @@ class _CreateEventState extends State<CreateEvent> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Title',
+                            AppLocalizations.of(context)!.title,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(fontWeight: FontWeight.normal),
                           ),
                           CustomTextFormField(
-                            hintText: 'Event Title',
+                            hintText: AppLocalizations.of(context)!.hintTitle,
                             icon: 'event_title',
                             controller: titleController,
                             validator: (value) {
@@ -129,14 +130,15 @@ class _CreateEventState extends State<CreateEvent> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            'Description',
+                            AppLocalizations.of(context)!.description,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
                                 ?.copyWith(fontWeight: FontWeight.normal),
                           ),
                           CustomTextFormField(
-                            hintText: 'Event Description',
+                            hintText:
+                                AppLocalizations.of(context)!.hintDescription,
                             controller: descriptionController,
                             maxLines: 5,
                             validator: (value) {
@@ -150,7 +152,7 @@ class _CreateEventState extends State<CreateEvent> {
                       ),
                     ),
                     CustomRow(
-                      title: 'Date',
+                      title: AppLocalizations.of(context)!.eventDate,
                       selectedDate: selectedDate,
                       selectedTime: null,
                       onDateSelected: (date) {
@@ -161,7 +163,7 @@ class _CreateEventState extends State<CreateEvent> {
                       onTimeSelected: (time) {},
                     ),
                     CustomRow(
-                      title: 'Time',
+                      title: AppLocalizations.of(context)!.eventTime,
                       selectedDate: null,
                       selectedTime: selectedTime,
                       onDateSelected: (date) {},
@@ -172,19 +174,19 @@ class _CreateEventState extends State<CreateEvent> {
                       },
                     ),
                     Text(
-                      'Location',
+                      AppLocalizations.of(context)!.location,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
                           ?.copyWith(fontWeight: FontWeight.normal),
                     ),
                     DetectLocationTime(
-                      title: 'Select Location',
+                      title: AppLocalizations.of(context)!.hintLocation,
                       image: 'location',
                     ),
                     SizedBox(height: 12),
                     CustomButton(
-                      label: 'Create Event',
+                      label: AppLocalizations.of(context)!.createEvent,
                       onPress: () async {
                         if (formKey.currentState!.validate() &&
                             selectedDate != null &&

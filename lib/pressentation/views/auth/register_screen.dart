@@ -23,8 +23,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     UsersProvider usersProvider =
@@ -41,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
           title: Text(
-            'Register',
+            AppLocalizations.of(context)!.register,
             style: Theme.of(context).textTheme.titleLarge!,
           ),
         ),
@@ -66,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomTextFormField(
                       controller: nameController,
                       icon: 'name',
-                      hintText: 'Name',
+                      hintText: AppLocalizations.of(context)!.name,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter a name';
@@ -79,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       icon: 'email',
-                      hintText: 'Email',
+                      hintText: AppLocalizations.of(context)!.email,
                       controller: emailController,
                       validator: (value) {
                         String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
@@ -97,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       icon: 'password',
-                      hintText: 'Password',
+                      hintText: AppLocalizations.of(context)!.password,
                       controller: passwordController,
                       pass: true,
                       validator: (value) {
@@ -117,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     CustomTextFormField(
                       icon: 'password',
-                      hintText: 'Re Password',
+                      hintText: AppLocalizations.of(context)!.rePassword,
                       pass: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -135,27 +136,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 CustomButton(
                   label: AppLocalizations.of(context)!.register,
-                  onPress: () {
+                  onPress: () async {
                     if (formKey.currentState!.validate()) {
-                      log('Register');
-                      FirebaseService.register(
-                        name: nameController.text.trim(),
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      ).then((user) {
-                        usersProvider.updateUser(user);
-                        Navigator.of(context)
-                            .pushReplacementNamed(LoginScreen.routeName);
-                        Fluttertoast.showToast(
-                          msg: 'Account created successfully',
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 5,
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                      }).catchError((error) {
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      try {
+                        await FirebaseService.register(
+                          name: nameController.text.trim(),
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        ).then((user) {
+                          usersProvider.updateUser(user);
+                          Navigator.of(context)
+                              .pushReplacementNamed(LoginScreen.routeName);
+                          Fluttertoast.showToast(
+                            msg: 'Account created successfully',
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        });
+                      } catch (error) {
                         String? msg;
                         msg = error is FirebaseAuthException
                             ? error.message
@@ -169,9 +175,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           textColor: Colors.white,
                           fontSize: 16.0,
                         );
-                      });
+                      } finally {
+                        setState(() {
+                          isLoading = false; 
+                        });
+                      }
                     }
                   },
+                  isLoading: isLoading, 
                 ),
                 SizedBox(
                   height: 16,
@@ -180,12 +191,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Already have an account?',
+                      AppLocalizations.of(context)!.haveAccount,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     TextButton(
                       child: Text(
-                        'Login',
+                        AppLocalizations.of(context)!.login,
                       ),
                       onPressed: () {
                         Navigator.of(context)

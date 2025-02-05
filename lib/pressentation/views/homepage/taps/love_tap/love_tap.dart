@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../provider/event_provider.dart';
 import '../../../../../provider/user_provider.dart';
 import '../../widgets/event_item.dart';
@@ -31,11 +29,9 @@ class LoveTap extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomTextFormField(
-                      hintText: 'Search for Event',
+                      hintText: AppLocalizations.of(context)!.searchEvent,
                       icon: 'search',
-                      onChanged: (value) {
-                        log(value);
-                      },
+                      onChanged: (value) {},
                     ),
                     Expanded(
                       child: ListView.separated(

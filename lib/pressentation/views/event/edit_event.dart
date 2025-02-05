@@ -1,6 +1,7 @@
 import 'package:evently_app/pressentation/views/event/event_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Data/models/category_model.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../provider/event_provider.dart';
@@ -40,7 +41,24 @@ class _EditEventState extends State<EditEvent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: AppTheme.primaryColor,
+            ),
+          ),
+          title: Text(
+            AppLocalizations.of(context)!.editEvent,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: AppTheme.primaryColor),
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -94,7 +112,7 @@ class _EditEventState extends State<EditEvent> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Title',
+                              AppLocalizations.of(context)!.title,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -107,7 +125,7 @@ class _EditEventState extends State<EditEvent> {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              'Description',
+                              AppLocalizations.of(context)!.description,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -122,7 +140,7 @@ class _EditEventState extends State<EditEvent> {
                         ),
                       ),
                       CustomRow(
-                        title: 'Date',
+                        title: AppLocalizations.of(context)!.eventDate,
                         selectedDate: selectedDate,
                         selectedTime: null,
                         onDateSelected: (date) {
@@ -133,7 +151,7 @@ class _EditEventState extends State<EditEvent> {
                         onTimeSelected: (time) {},
                       ),
                       CustomRow(
-                        title: 'Time',
+                        title: AppLocalizations.of(context)!.eventTime,
                         selectedDate: null,
                         selectedTime: selectedTime,
                         onDateSelected: (date) {},
@@ -144,19 +162,19 @@ class _EditEventState extends State<EditEvent> {
                         },
                       ),
                       Text(
-                        'Location',
+                        AppLocalizations.of(context)!.location,
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
                             ?.copyWith(fontWeight: FontWeight.normal),
                       ),
                       DetectLocationTime(
-                        title: 'Select Location',
+                        title: AppLocalizations.of(context)!.hintLocation,
                         image: 'location',
                       ),
                       SizedBox(height: 12),
                       CustomButton(
-                        label: 'Update Event',
+                        label: AppLocalizations.of(context)!.editEvent,
                         onPress: () async {
                           if (formKey.currentState!.validate() &&
                               selectedDate != null &&

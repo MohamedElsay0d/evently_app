@@ -1,5 +1,6 @@
 import 'package:evently_app/pressentation/views/homepage/widgets/navbar_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../themes/app_theme.dart';
 import '../event/create_event.dart';
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
               activeIcon: NavBarIcon(
                 icon: 'homeActive',
               ),
-              label: 'Home',
+              label: AppLocalizations.of(context)!.homeTap,
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               activeIcon: NavBarIcon(
                 icon: 'mapActive',
               ),
-              label: 'Map',
+              label: AppLocalizations.of(context)!.mapTap,
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               activeIcon: NavBarIcon(
                 icon: 'loveActive',
               ),
-              label: 'Love',
+              label: AppLocalizations.of(context)!.loveTap,
             ),
             BottomNavigationBarItem(
               icon: NavBarIcon(
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               activeIcon: NavBarIcon(
                 icon: 'profileActive',
               ),
-              label: 'Profile',
+              label: AppLocalizations.of(context)!.profileTap,
             ),
           ],
         ),

@@ -26,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     UsersProvider usersProvider =
@@ -103,25 +105,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 CustomButton(
                   label: AppLocalizations.of(context)!.login,
-                  onPress: () {
+                  onPress: () async {
                     if (formKey.currentState!.validate()) {
-                      FirebaseService.login(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      ).then((user) {
-                        usersProvider.updateUser(user);
-                        Navigator.of(context)
-                            .pushReplacementNamed(HomePage.routeName);
-                        Fluttertoast.showToast(
-                          msg: 'Welcome back',
-                          toastLength: Toast.LENGTH_LONG,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 5,
-                          backgroundColor: Colors.green,
-                          textColor: Colors.white,
-                          fontSize: 16.0,
-                        );
-                      }).catchError((error) {
+                      setState(() {
+                        isLoading = true; // Start loading
+                      });
+
+                      try {
+                        await FirebaseService.login(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        ).then((user) {
+                          usersProvider.updateUser(user);
+                          Navigator.of(context)
+                              .pushReplacementNamed(HomePage.routeName);
+                          Fluttertoast.showToast(
+                            msg: 'Welcome back',
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 5,
+                            backgroundColor: Colors.green,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        });
+                      } catch (error) {
                         String? msg;
                         msg = error is FirebaseAuthException
                             ? error.message
@@ -135,9 +143,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           textColor: Colors.white,
                           fontSize: 16.0,
                         );
-                      });
+                      } finally {
+                        setState(() {
+                          isLoading = false; 
+                        });
+                      }
                     }
                   },
+                  isLoading: isLoading, 
                 ),
                 SizedBox(
                   height: 16,
@@ -146,12 +159,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Don\'t have an account?',
+                      AppLocalizations.of(context)!.noAccount,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     TextButton(
                       child: Text(
-                        'Create an account',
+                        AppLocalizations.of(context)!.register,
                       ),
                       onPressed: () {
                         Navigator.of(context)

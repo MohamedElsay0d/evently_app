@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../provider/settings_provider.dart';
 import '../../../../themes/app_theme.dart';
 
@@ -38,7 +38,7 @@ class CustomRow extends StatelessWidget {
         ),
         SizedBox(width: 5),
         Text(
-          'Event $title',
+          title,
           style: Theme.of(context)
               .textTheme
               .bodyLarge
@@ -68,7 +68,7 @@ class CustomRow extends StatelessWidget {
             }
           },
           child: Text(
-            title == 'Date'
+            title == AppLocalizations.of(context)!.eventDate
                 ? (selectedDate != null
                     ? dateFormat.format(selectedDate!)
                     : 'Choose Date')

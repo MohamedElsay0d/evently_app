@@ -3,8 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider with ChangeNotifier {
   late SharedPreferences _sharedPreferences;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>(); 
 
-  ThemeMode _darkTheme = ThemeMode.system;
+  ThemeMode _darkTheme = ThemeMode.dark;
   String _languageCode = 'en';
 
   ThemeMode get darkTheme => _darkTheme;
@@ -26,7 +27,7 @@ class SettingsProvider with ChangeNotifier {
   }
 
   void loadSettings() {
-    final savedTheme = _sharedPreferences.getString('theme') ?? 'system';
+    final savedTheme = _sharedPreferences.getString('theme') ?? 'dark';
     final savedLanguage = _sharedPreferences.getString('language') ?? 'en';
 
     switch (savedTheme) {
@@ -37,7 +38,7 @@ class SettingsProvider with ChangeNotifier {
         _darkTheme = ThemeMode.dark;
         break;
       default:
-        _darkTheme = ThemeMode.system;
+        _darkTheme = ThemeMode.dark;
     }
     _languageCode = savedLanguage;
     notifyListeners();

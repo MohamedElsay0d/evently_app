@@ -1,6 +1,6 @@
 import 'package:evently_app/pressentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../themes/app_theme.dart';
 import '../../widgets/custom_button.dart';
 
@@ -22,7 +22,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Forget Password',
+          AppLocalizations.of(context)!.forgetPassword,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -44,12 +44,12 @@ class ForgetPasswordScreen extends StatelessWidget {
               SizedBox(
                 height: 24,
               ),
-              CustomTextFormField(hintText: 'Email', icon: 'email'),
+              CustomTextFormField(hintText: AppLocalizations.of(context)!.email, icon: 'email'),
               SizedBox(
                 height: 24,
               ),
               CustomButton(
-                label: 'Reset Password',
+                label: AppLocalizations.of(context)!.resetPassword,
                 onPress: () {},
               ),
             ],

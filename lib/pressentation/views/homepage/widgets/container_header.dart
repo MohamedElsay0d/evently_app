@@ -1,7 +1,7 @@
 import 'package:evently_app/pressentation/views/homepage/widgets/tab_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Data/models/category_model.dart';
 import '../../../../provider/event_provider.dart';
 import '../../../../provider/user_provider.dart';
@@ -20,7 +20,8 @@ class _ContainerHeaderState extends State<ContainerHeader> {
 
   @override
   Widget build(BuildContext context) {
-        UsersProvider usersProvider = Provider.of<UsersProvider>(context,listen: false);
+    UsersProvider usersProvider =
+        Provider.of<UsersProvider>(context, listen: false);
     final textTheme = Theme.of(context).textTheme;
     EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
     return Container(
@@ -39,7 +40,7 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Welcome Back ✨',
+                      '${AppLocalizations.of(context)!.wellcome} ✨',
                       style: textTheme.bodyMedium!.copyWith(
                         color: AppTheme.white,
                       ),
@@ -49,7 +50,7 @@ class _ContainerHeaderState extends State<ContainerHeader> {
                       usersProvider.currentUser!.name,
                       style: textTheme.titleLarge,
                     ),
-                    SizedBox(height: 28),
+                    SizedBox(height: 16),
                     DefaultTabController(
                       initialIndex: selectedIndex,
                       length: Category.items.length + 1,

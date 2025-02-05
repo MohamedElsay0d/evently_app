@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../Data/services/firebase_service.dart';
 import '../../../../../provider/settings_provider.dart';
 import '../../../../../provider/user_provider.dart';
@@ -32,7 +32,7 @@ class ProfileTap extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Dark Theme',
+                    AppLocalizations.of(context)!.darkMode,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
                         ),
@@ -49,7 +49,7 @@ class ProfileTap extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Language',
+                    AppLocalizations.of(context)!.language,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           fontSize: 20,
                         ),
@@ -76,10 +76,7 @@ class ProfileTap extends StatelessWidget {
                           Settingsrovider.changeLanguage(value);
                         }
                       },
-                      value: languageCodes.entries
-                          .firstWhere((entry) =>
-                              entry.key == Settingsrovider.languageCode)
-                          .key,
+                      value: Provider.of<SettingsProvider>(context).languageCode,
                       icon: Icon(
                         Icons.arrow_drop_down,
                         color: Theme.of(context).primaryColor,

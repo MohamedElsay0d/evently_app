@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Data/models/event_model.dart';
 import '../../../provider/event_provider.dart';
 import '../../../themes/app_theme.dart';
@@ -32,7 +32,7 @@ class EventDetails extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Event Details',
+          AppLocalizations.of(context)!.eventDetails,
           style: Theme.of(context)
               .textTheme
               .titleLarge!
@@ -100,7 +100,7 @@ class EventDetails extends StatelessWidget {
               ),
               SizedBox(height: 8),
               Text(
-                'Descreption',
+                AppLocalizations.of(context)!.description,
                 style: textTheme.bodyLarge,
               ),
               SizedBox(height: 5),
