@@ -18,6 +18,7 @@ dependencies:
   provider: ^6.1.2
   flutter_localizations:
     sdk: flutter
+  fluttertoast: ^8.2.10
 
 dev_dependencies:
   flutter_test:

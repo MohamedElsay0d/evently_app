@@ -1,6 +1,6 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -112,8 +112,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         usersProvider.updateUser(user);
                         Navigator.of(context)
                             .pushReplacementNamed(HomePage.routeName);
+                        Fluttertoast.showToast(
+                          msg: 'Welcome back',
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 5,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
                       }).catchError((error) {
-                        log(error.toString());
+                        String? msg;
+                        msg = error is FirebaseAuthException
+                            ? error.message
+                            : "Something went wrong";
+                        Fluttertoast.showToast(
+                          msg: msg!,
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 5,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
                       });
                     }
                   },

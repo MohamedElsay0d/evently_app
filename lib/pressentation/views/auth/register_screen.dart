@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:evently_app/pressentation/views/auth/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../Data/services/firebase_service.dart';
@@ -141,12 +143,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                       ).then((user) {
-                        log('User: $user');
                         usersProvider.updateUser(user);
                         Navigator.of(context)
                             .pushReplacementNamed(LoginScreen.routeName);
+                        Fluttertoast.showToast(
+                          msg: 'Account created successfully',
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 5,
+                          backgroundColor: Colors.green,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
                       }).catchError((error) {
-                        log('Error: $error');
+                        String? msg;
+                        msg = error is FirebaseAuthException
+                            ? error.message
+                            : "Something went wrong";
+                        Fluttertoast.showToast(
+                          msg: msg!,
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 5,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
                       });
                     }
                   },
