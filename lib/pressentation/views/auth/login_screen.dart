@@ -110,7 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         password: passwordController.text.trim(),
                       ).then((user) {
                         usersProvider.updateUser(user);
-                        Navigator.of(context).pushNamed(HomePage.routeName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomePage.routeName);
                       }).catchError((error) {
                         log(error.toString());
                       });
