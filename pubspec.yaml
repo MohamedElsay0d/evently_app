@@ -19,6 +19,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   fluttertoast: ^8.2.10
+  shared_preferences: ^2.5.1
 
 dev_dependencies:
   flutter_test:
