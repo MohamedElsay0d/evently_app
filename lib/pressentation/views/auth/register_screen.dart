@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:evently_app/pressentation/views/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

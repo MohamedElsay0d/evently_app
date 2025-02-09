@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/event_model.dart';
 import '../models/user_model.dart';
@@ -87,6 +88,7 @@ class FirebaseService {
 
   static Future<void> logout() async {
     FirebaseAuth.instance.signOut();
+    GoogleSignIn().signOut();
   }
 
   static Future<void> addEventToFavorite(String eventId) async {
@@ -101,5 +103,44 @@ class FirebaseService {
     await usersCollection.doc(FirebaseAuth.instance.currentUser!.uid).update({
       'favoriteEventsId': FieldValue.arrayRemove([eventId])
     });
+  }
+
+  static Future<UserModel> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        throw Exception('Google sign-in canceled by user');
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final CollectionReference<UserModel> usersCollection =
+          getUsersCollection();
+      final DocumentSnapshot<UserModel> userSnapshot =
+          await usersCollection.doc(userCredential.user!.uid).get();
+
+      if (userSnapshot.exists) {
+        return userSnapshot.data()!;
+      } else {
+        final UserModel newUser = UserModel(
+          id: userCredential.user!.uid,
+          name: googleUser.displayName ?? 'Unknown',
+          email: googleUser.email,
+          favoriteEventsId: [],
+        );
+        await usersCollection.doc(userCredential.user!.uid).set(newUser);
+        return newUser;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 }

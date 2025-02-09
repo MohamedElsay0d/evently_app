@@ -145,12 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       } finally {
                         setState(() {
-                          isLoading = false; 
+                          isLoading = false;
                         });
                       }
                     }
                   },
-                  isLoading: isLoading, 
+                  isLoading: isLoading,
                 ),
                 SizedBox(
                   height: 16,
@@ -182,6 +182,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 ButtonWithImage(
                   icon: 'google',
+                  onPressed: () async {
+                    await FirebaseService.signInWithGoogle().then((user) {
+                      usersProvider.updateUser(user);
+                      Navigator.of(context)
+                          .pushReplacementNamed(HomePage.routeName);
+                      Fluttertoast.showToast(
+                        msg: 'Welcome back',
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                    }).catchError((onError) {
+                      Fluttertoast.showToast(
+                        msg: onError.toString(),
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                    });
+                  },
                 )
               ],
             ),
